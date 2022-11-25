@@ -28,6 +28,10 @@ jobs:
           working_directory: api
           command: php artisan migrate:fresh --path=database/migrations/**
       - run: 
+          name: run mkdir unit
+          working_directory: api
+          command: mkdir ./tests/Unit
+      - run: 
           name: run phpunit
           working_directory: api
           command: php artisan test
