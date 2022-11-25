@@ -4,8 +4,10 @@ namespace Tests\Feature\User;
 
 use Packages\Infrastructure\Eloquents\User;
 
-class RegisterUserTest extends UserTestCase {
-    public function test_ユーザー作成を行えること(): void {
+class RegisterUserTest extends UserTestCase
+{
+    public function test_ユーザー作成を行えること(): void
+    {
         $request = [
             'email'     => 'a@a.aa',
             'password'  => 'password',
@@ -16,7 +18,8 @@ class RegisterUserTest extends UserTestCase {
         $this->assertTrue(User::where('email', $request['email'])->exists());
     }
 
-    public function test_ユーザーが存在した場合作成できないこと(): void {
+    public function test_ユーザーが存在した場合作成できないこと(): void
+    {
         $this->test_ユーザー作成を行えること();
 
         $request = [
