@@ -65,3 +65,12 @@ services:
     entrypoint: php
     volumes:
       - ./api:/var/www/html
+
+  composer:
+    build:
+      context: ./api
+    environment:
+      TZ: "Asia/Tokyo"
+    entrypoint: composer
+    volumes:
+      - ./api:/var/www/html
