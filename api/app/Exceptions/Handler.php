@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Packages\Exceptions\User\UserExistsException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +38,14 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    public function render($request, Throwable $e) {
+        if($e instanceof ValidationException) {
+            return response()->json($e->errors(), 400);
+        }
+
+        return parent::render($request, $e);
+    }
+
     /**
      * Register the exception handling callbacks for the application.
      *
@@ -43,8 +53,8 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (UserExistsException $e) {
+            return response()->json(['message' => '1ユーザーまでしか作成ができません。'], 400);
         });
     }
 }

@@ -52,4 +52,6 @@ $app->singleton(
 |
 */
 
+$app->loadEnvironmentFrom('.env.dev');
+
 return $app;

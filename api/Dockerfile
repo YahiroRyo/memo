@@ -24,7 +24,7 @@ RUN apt-get -y update && apt-get --no-install-recommends install -y \
 
 # PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-&& docker-php-ext-install -j$(nproc) gd intl mbstring exif mysqli pdo_mysql opcache
+&& docker-php-ext-install -j$(nproc) gd intl mbstring exif pdo pgsql pdo_pgsql opcache
 
 # composer install
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
