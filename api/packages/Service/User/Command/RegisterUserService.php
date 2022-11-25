@@ -7,7 +7,8 @@ use Packages\Exceptions\User\UserExistsException;
 use Packages\Infrastructure\Repositories\User\RegisterUserRepository;
 use Packages\Infrastructure\Repositories\User\UserRepository;
 
-final class RegisterUserService {
+final class RegisterUserService
+{
     private RegisterUserRepository $registerUserRepository;
     private UserRepository $userRepository;
 
@@ -19,7 +20,8 @@ final class RegisterUserService {
         $this->userRepository = $userRepository;
     }
 
-    public function register(InitUser $initUser): void {
+    public function register(InitUser $initUser): void
+    {
         if (!$this->userRepository->users()->isEmpty()) {
             throw new UserExistsException();
         }

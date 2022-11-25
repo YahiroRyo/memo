@@ -5,7 +5,8 @@ namespace Packages\Domain\User\Entities;
 use Packages\Domain\User\ValueObjects\Email;
 use Packages\Domain\User\ValueObjects\Password;
 
-final class InitUser {
+final class InitUser
+{
     private Email $email;
     private Password $password;
 
@@ -17,11 +18,13 @@ final class InitUser {
         $this->password = $password;
     }
 
-    public function email(): Email {
+    public function email(): Email
+    {
         return $this->email;
     }
 
-    public function password(): Password {
+    public function password(): Password
+    {
         return $this->password;
     }
 }

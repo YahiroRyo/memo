@@ -2,5 +2,5 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->prefix('/')->group(function() {
+Route::middleware('auth:sanctum')->prefix('/')->group(function () {
 });

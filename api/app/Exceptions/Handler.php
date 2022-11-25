@@ -38,8 +38,9 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    public function render($request, Throwable $e) {
-        if($e instanceof ValidationException) {
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ValidationException) {
             return response()->json($e->errors(), 400);
         }
 
