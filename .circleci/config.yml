@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/php:8.1
+        environment:
+          DB_HOST: 127.0.0.1
+      - image: cimg/postgres:14.5
+        environment:
+          POSTGRES_USER: docker
+          POSTGRES_PASSWORD: docker
+          PGPASSWORD: docker
+          POSTGRES_DB: main
+    steps:
+      - checkout
+      - run: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+      - run:
+          name: composer install
+          working_directory: api
+          command: composer install
+      - save_cache:
+          paths:
+            - api/vender
+          key: v1-dependencies-{{ checksum "api/composer.json" }}
+      - run:
+          name: run migrate
+          working_directory: api
+          command: php artisan migrate:fresh --path=database/migrations/**
+      - run: 
+          name: run phpunit
+          working_directory: api
+          command: php artisan test
+workflows:
+  test:
+    jobs:
+      - test
