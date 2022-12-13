@@ -2,8 +2,8 @@
 
 namespace Packages\Domain\User\ValueObjects;
 
+use Illuminate\Support\Facades\Validator;
 use Packages\Domain\StringLengthLimit;
-use Packages\Domain\Validator\Entities\ValidationFactory;
 
 final class Email extends StringLengthLimit
 {
@@ -13,7 +13,7 @@ final class Email extends StringLengthLimit
 
     public static function of($value): static
     {
-        ValidationFactory::make(
+        Validator::make(
             ['メールアドレス' => $value],
             ['メールアドレス' => ['email']]
         )->validate();

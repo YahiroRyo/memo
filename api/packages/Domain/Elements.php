@@ -2,7 +2,7 @@
 
 namespace Packages\Domain;
 
-use Packages\Domain\Validator\Entities\ValidationFactory;
+use Illuminate\Support\Facades\Validator;
 
 abstract class Elements
 {
@@ -11,7 +11,7 @@ abstract class Elements
 
     private function __construct($value)
     {
-        ValidationFactory::make(
+        Validator::make(
             [$this->name => $value],
             [$this->name => ['array']],
             [$this->name => [

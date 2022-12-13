@@ -2,7 +2,7 @@
 
 namespace Packages\Domain;
 
-use Packages\Domain\Validator\Entities\ValidationFactory;
+use Illuminate\Support\Facades\Validator;
 
 abstract class StringLengthLimit
 {
@@ -19,7 +19,7 @@ abstract class StringLengthLimit
             $validateRules[] = "required";
         }
 
-        ValidationFactory::make(
+        Validator::make(
             [$this->name => $value],
             [$this->name => $validateRules],
             [$this->name => [
