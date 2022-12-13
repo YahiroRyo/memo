@@ -3,22 +3,15 @@
 namespace Packages\Domain;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
-abstract class Elements
+class Elements implements Domainable
 {
     protected array $value;
     protected string $name;
 
     private function __construct($value)
     {
-        Validator::make(
-            [$this->name => $value],
-            [$this->name => ['array']],
-            [$this->name => [
-                'array'  => ':attributeは配列でなければなりません。',
-            ]]
-        )->validate();
-
         $this->value = $value;
     }
 
@@ -37,13 +30,40 @@ abstract class Elements
         return count($this->value) === 0;
     }
 
+    public function isValidationFail(): bool
+    {
+        return count($this->validatedMessages()) !== 0;
+    }
+
     public function value(): array
     {
         return $this->value;
     }
 
-    public static function of($value): static
+    public function validatedMessages(): array
+    {
+        return Validator::make(
+            [$this->name => $this->value],
+            [$this->name => ['array']],
+            [$this->name => [
+                'array'  => ':attributeは配列でなければなりません。',
+            ]]
+        )->messages()->toArray();
+    }
+
+    public static function from($value): static
     {
         return new static($value);
+    }
+
+    public static function throwIfValidErrorFrom($value): static
+    {
+        $valueObject = new static($value);
+
+        if ($valueObject->isValidationFail()) {
+            throw ValidationException::withMessages($valueObject->validatedMessages());
+        }
+
+        return $valueObject;
     }
 }

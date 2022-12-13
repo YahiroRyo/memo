@@ -11,13 +11,17 @@ final class Email extends StringLengthLimit
     protected int $minLengthLimit = 0;
     protected int $maxLengthLimit = 255;
 
-    public static function of($value): static
+    public function validatedMessages(): array
     {
-        Validator::make(
-            ['メールアドレス' => $value],
-            ['メールアドレス' => ['email']]
-        )->validate();
-
-        return parent::of($value);
+        return array_merge(
+            Validator::make(
+                [$this->name => $this->value],
+                [$this->name => ['email']],
+                [$this->name => [
+                    'email'  => 'メールアドレスのフォーマットが不正です'
+                ]]
+            )->messages()->toArray(),
+            parent::validatedMessages(),
+        );
     }
 }

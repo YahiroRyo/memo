@@ -11,7 +11,7 @@ final class UserRepository
 {
     public function users(): UserList
     {
-        $result = UserList::of([]);
+        $result = UserList::from([]);
 
         $users = DB::select('
             SELECT
@@ -21,7 +21,7 @@ final class UserRepository
         ');
         foreach ($users as $user) {
             $result = $result->add(new User(
-                Email::of($user->email)
+                Email::throwIfValidErrorFrom($user->email)
             ));
         }
 
