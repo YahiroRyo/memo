@@ -20,6 +20,6 @@ final class NonActiveNoteBriefList extends Elements
 
     public function shouldDeleteEarliestNote(): bool
     {
-        return $this->length() >= 8;
+        return $this->length() > 8;
     }
 }
