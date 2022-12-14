@@ -5,17 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    private string $tableName = 'users';
+    private string $tableName = 'notes';
 
     public function up(): void
     {
         Schema::create($this->tableName, function (Blueprint $table) {
-            $table->id('user_id');
+            $table->char('note_id', 26)->primary();
 
-            $table->string('email', 255);
-            $table->string('password', 255);
-            $table->rememberToken();
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('createdAt')->useCurrent();
         });
     }
 

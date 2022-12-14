@@ -3,10 +3,10 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Packages\Domain\Error\Entities\Errors;
 use Packages\Domain\User\Entities\InitUser;
 use Packages\Domain\User\ValueObjects\Email;
 use Packages\Domain\User\ValueObjects\Password;
-use Packages\Domain\Validator\Entities\Validator;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -23,11 +23,16 @@ class RegisterUserRequest extends FormRequest
 
     public function ofDomain(): InitUser
     {
-        return Validator::afterIfErrorThrow(function () {
-            return new InitUser(
-                Email::of($this->email),
-                Password::of($this->password)
-            );
-        });
+        $initUser = new InitUser(
+            Email::from($this->email),
+            Password::from($this->password)
+        );
+
+        $errors = new Errors([]);
+        $errors = $errors->addIfError($initUser->email());
+        $errors = $errors->addIfError($initUser->password());
+        $errors->throwIf();
+
+        return $initUser;
     }
 }

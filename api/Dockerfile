@@ -3,6 +3,8 @@ FROM php:8.1-apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 ARG HTTPS_ENV=local
 
+COPY ./apache/*.conf /etc/apache2/sites-enabled/
+
 RUN apt-get update
 
 # zip unzip install

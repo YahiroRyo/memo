@@ -14,9 +14,9 @@ final class RegisterUserRepository
         DB::transaction(function () use ($initUser): void {
             $isSuccess = DB::insert('
                 INSERT INTO users (
-                    "email",
-                    "password",
-                    "createdAt"
+                    email,
+                    password,
+                    created_at
                 )
                 VALUES (?, ?, ?)
             ', [

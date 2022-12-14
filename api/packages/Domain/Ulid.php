@@ -5,9 +5,9 @@ namespace Packages\Domain;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class Elements implements Domainable
+class Ulid implements Domainable
 {
-    protected array $value;
+    protected string $value;
     protected string $name;
 
     private function __construct($value)
@@ -15,19 +15,9 @@ class Elements implements Domainable
         $this->value = $value;
     }
 
-    public function add($value): static
+    public function value(): string
     {
-        return new static(array_merge($this->value, [$value]));
-    }
-
-    public function reset(): static
-    {
-        return new static([]);
-    }
-
-    public function isEmpty(): bool
-    {
-        return count($this->value) === 0;
+        return $this->value;
     }
 
     public function isValidationFail(): bool
@@ -35,18 +25,15 @@ class Elements implements Domainable
         return count($this->validatedMessages()) !== 0;
     }
 
-    public function value(): array
-    {
-        return $this->value;
-    }
-
     public function validatedMessages(): array
     {
         return Validator::make(
             [$this->name => $this->value],
-            [$this->name => ['array']],
+            [$this->name => ["string", "min:26", "max:26"]],
             [$this->name => [
-                'array'  => ':attributeは配列でなければなりません。',
+                'string'    => ':attributeは文字でなければなりません。',
+                'min'       => ':attributeの長さは:minでなければなりません。',
+                'max'       => ':attributeの長さは:maxでなければなりません。',
             ]]
         )->messages()->toArray();
     }

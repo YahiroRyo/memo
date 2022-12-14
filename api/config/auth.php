@@ -1,6 +1,6 @@
 <?php
 
-use Packages\Infrastructure\Eloquents\User;
+use Packages\Infrastructure\Eloquents\User\User;
 
 return [
 
