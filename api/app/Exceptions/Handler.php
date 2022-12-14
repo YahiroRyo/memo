@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Packages\Exceptions\Note\FailRegisterNoteException;
 use Packages\Exceptions\User\UserExistsException;
 use Throwable;
 
@@ -56,6 +57,10 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (UserExistsException $e) {
             return response()->json(['message' => '1ユーザーまでしか作成ができません。'], 400);
+        });
+
+        $this->reportable(function (FailRegisterNoteException $e) {
+            return response()->json(['message' => 'ノートの作成に失敗しました。時間を置いてからもう一度お試しください。'], 400);
         });
     }
 }

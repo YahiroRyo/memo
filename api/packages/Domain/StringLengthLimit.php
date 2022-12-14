@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class StringLengthLimit implements Domainable
 {
-    protected string $value;
+    protected readonly string $value;
     protected string $name;
     protected int $minLengthLimit = 0;
     protected int $maxLengthLimit;
