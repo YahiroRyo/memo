@@ -4,11 +4,12 @@ namespace App\Http\Requests\Note;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Packages\Domain\Error\Entities\Errors;
-use Packages\Domain\Note\Entities\InitNote;
+use Packages\Domain\Note\Entities\LatestNote;
 use Packages\Domain\Note\ValueObjects\Body;
+use Packages\Domain\Note\ValueObjects\NoteId;
 use Packages\Domain\Note\ValueObjects\Title;
 
-class RegisterNoteRequest extends FormRequest
+class EditNoteRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -21,26 +22,20 @@ class RegisterNoteRequest extends FormRequest
         ];
     }
 
-    public function fromDomain(): InitNote
+    public function fromDomain(): LatestNote
     {
-        $initNote = new InitNote(
+        $latestNote = new LatestNote(
+            NoteId::from($this->noteId),
             Title::from($this->title),
             Body::from($this->body)
         );
 
         $errors = new Errors([]);
-        $errors = $errors->addIfError($initNote->title());
-        $errors = $errors->addIfError($initNote->body());
+        $errors = $errors->addIfError($latestNote->noteId());
+        $errors = $errors->addIfError($latestNote->title());
+        $errors = $errors->addIfError($latestNote->body());
         $errors->throwIf();
 
-        return $initNote;
-    }
-
-    public static function fromDefaultValue(): RegisterNoteRequest
-    {
-        return new RegisterNoteRequest([
-            'title' => 'タイトル',
-            'body'  => 'ボディー'
-        ]);
+        return $latestNote;
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class Elements implements Domainable
 {
-    protected array $value;
+    protected readonly array $value;
     protected string $name;
 
     private function __construct($value)
@@ -25,9 +25,19 @@ class Elements implements Domainable
         return new static([]);
     }
 
+    public function length(): int
+    {
+        return count($this->value());
+    }
+
     public function isEmpty(): bool
     {
         return count($this->value) === 0;
+    }
+
+    public function last(): mixed
+    {
+        return $this->value()[array_key_last($this->value())];
     }
 
     public function isValidationFail(): bool

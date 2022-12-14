@@ -37,6 +37,7 @@ runTest() {
     printf '[Test] Start on...'
     printf '\n'
 
+    docker compose run php artisan migrate:refresh --path=database/migrations/**
     docker compose run php artisan test
 }
 

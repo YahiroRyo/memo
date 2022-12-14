@@ -21,7 +21,7 @@ class RegisterUserRequest extends FormRequest
         ];
     }
 
-    public function ofDomain(): InitUser
+    public function fromDomain(): InitUser
     {
         $initUser = new InitUser(
             Email::from($this->email),

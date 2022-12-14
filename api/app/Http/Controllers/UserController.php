@@ -16,6 +16,6 @@ class UserController extends Controller
 
     public function registerUser(RegisterUserRequest $request): void
     {
-        $this->registerUserService->register($request->ofDomain());
+        $this->registerUserService->register($request->fromDomain());
     }
 }

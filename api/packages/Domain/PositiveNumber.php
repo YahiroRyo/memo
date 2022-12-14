@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class PositiveNumber implements Domainable
 {
-    protected string $value;
+    protected readonly string $value;
     protected string $name;
 
     private function __construct($value)
