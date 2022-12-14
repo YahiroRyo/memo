@@ -8,7 +8,8 @@ final class NoteId extends Ulid
 {
     protected string $name = 'メモ識別番号';
 
-    public function ofJson(): array {
+    public function ofJson(): array
+    {
         return ['noteId' => $this->value()];
     }
 }

@@ -15,13 +15,13 @@ final class RegisterNoteService
     public function __construct(
         UserRepository $userRepository,
         RegisterNoteRepository $registerNoteRepository,
-    )
-    {
+    ) {
         $this->userRepository         = $userRepository;
         $this->registerNoteRepository = $registerNoteRepository;
     }
 
-    public function registerNote(InitNote $initNote): NoteId {
+    public function registerNote(InitNote $initNote): NoteId
+    {
         $user = $this->userRepository->userBySessionId();
 
         return $this->registerNoteRepository->registerNote($initNote, $user);

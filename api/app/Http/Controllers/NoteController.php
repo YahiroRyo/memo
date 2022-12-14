@@ -14,7 +14,8 @@ class NoteController extends Controller
         $this->registerNoteService = $registerNoteService;
     }
 
-    public function registerNote(RegisterNoteRequest $request): array {
+    public function registerNote(RegisterNoteRequest $request): array
+    {
         return $this->registerNoteService->registerNote($request->ofDomain())->ofJson();
     }
 }

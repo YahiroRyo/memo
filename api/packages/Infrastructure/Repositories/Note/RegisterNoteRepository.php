@@ -11,10 +11,11 @@ use Rorecek\Ulid\Ulid;
 
 final class RegisterNoteRepository
 {
-    public function registerNote(InitNote $initNote, User $user): NoteId {
+    public function registerNote(InitNote $initNote, User $user): NoteId
+    {
         $noteId = (new Ulid())->generate();
 
-        DB::transaction(function() use ($initNote, $user, $noteId) {
+        DB::transaction(function () use ($initNote, $user, $noteId) {
             $isSuccess = DB::insert('
                 INSERT INTO notes (
                     note_id

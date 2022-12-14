@@ -18,11 +18,13 @@ final class InitNote
         $this->body  = $body;
     }
 
-    public function title(): Title {
+    public function title(): Title
+    {
         return $this->title;
     }
 
-    public function body(): Body {
+    public function body(): Body
+    {
         return $this->body;
     }
 }

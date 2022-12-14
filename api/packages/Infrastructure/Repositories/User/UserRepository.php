@@ -31,7 +31,8 @@ final class UserRepository
         return $result;
     }
 
-    public function userBySessionId(): User {
+    public function userBySessionId(): User
+    {
         $laravelUser = auth()->user();
 
         return new User(
