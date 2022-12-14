@@ -43,9 +43,9 @@ final class NonActiveNoteRepository
 
         DB::delete('
             DELETE FROM
-                notes
+                non_active_notes
             WHERE
-                id
+                id = ?
         ', [$earliestNote->nonActiveNoteId()->value()]);
     }
 }
