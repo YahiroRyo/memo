@@ -5,7 +5,7 @@ namespace Packages\Domain;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class PositiveNumber implements Domainable
+class PositiveNumber implements DomainModel
 {
     protected readonly string $value;
     protected string $name;
@@ -38,11 +38,6 @@ class PositiveNumber implements Domainable
 
     public static function from($value): static
     {
-        return new static($value);
-    }
-
-    public static function throwIfValidErrorFrom($value): static
-    {
         $valueObject = new static($value);
 
         if ($valueObject->isValidationFail()) {
@@ -50,5 +45,10 @@ class PositiveNumber implements Domainable
         }
 
         return $valueObject;
+    }
+
+    public static function unsafetyFrom($value): static
+    {
+        return new static($value);
     }
 }

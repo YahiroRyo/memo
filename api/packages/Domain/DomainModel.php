@@ -2,7 +2,7 @@
 
 namespace Packages\Domain;
 
-interface Domainable
+interface DomainModel
 {
     public function isValidationFail(): bool;
     public function validatedMessages(): array;

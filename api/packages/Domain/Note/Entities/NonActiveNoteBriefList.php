@@ -6,6 +6,8 @@ use Packages\Domain\Elements;
 
 final class NonActiveNoteBriefList extends Elements
 {
+    protected string $name = '削除済みのノート一覧';
+
     /** @return NonActiveNoteBrief[] */
     public function value(): array
     {

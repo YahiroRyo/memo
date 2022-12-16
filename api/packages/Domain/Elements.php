@@ -5,7 +5,7 @@ namespace Packages\Domain;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class Elements implements Domainable
+class Elements implements DomainModel
 {
     protected readonly array $value;
     protected string $name;
@@ -63,11 +63,6 @@ class Elements implements Domainable
 
     public static function from($value): static
     {
-        return new static($value);
-    }
-
-    public static function throwIfValidErrorFrom($value): static
-    {
         $valueObject = new static($value);
 
         if ($valueObject->isValidationFail()) {
@@ -75,5 +70,10 @@ class Elements implements Domainable
         }
 
         return $valueObject;
+    }
+
+    public static function unsafetyFrom($value): static
+    {
+        return new static($value);
     }
 }
