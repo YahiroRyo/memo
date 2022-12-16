@@ -2,6 +2,7 @@
 
 namespace Packages\Infrastructure\Repositories\Note;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use Packages\Domain\Note\Entities\LatestNote;
 use Packages\Domain\User\Entities\User;
@@ -56,14 +57,16 @@ final class EditNoteRepository
                     user_id,
                     title,
                     body,
+                    active_note_created_at,
                     created_at
-                ) VALUES (?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?)
             ', [
                 $preActiveNote->note_id,
                 $preActiveNote->user_id,
                 $preActiveNote->title,
                 $preActiveNote->body,
                 $preActiveNote->created_at,
+                new CarbonImmutable()
             ]);
 
             if (!$isSuccess) {
