@@ -3,7 +3,7 @@
 namespace Packages\Domain\Error\Entities;
 
 use Illuminate\Validation\ValidationException;
-use Packages\Domain\Domainable;
+use Packages\Domain\DomainModel;
 
 final class Errors
 {
@@ -19,7 +19,7 @@ final class Errors
         return count($this->errors) === 0;
     }
 
-    public function addIfError(Domainable $valueObject): Errors
+    public function addIfError(DomainModel $valueObject): Errors
     {
         if ($valueObject->isValidationFail()) {
             return new Errors(array_merge(

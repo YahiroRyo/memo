@@ -24,8 +24,8 @@ class RegisterUserRequest extends FormRequest
     public function fromDomain(): InitUser
     {
         $initUser = new InitUser(
-            Email::from($this->email),
-            Password::from($this->password)
+            Email::unsafetyFrom($this->email),
+            Password::unsafetyFrom($this->password)
         );
 
         $errors = new Errors([]);

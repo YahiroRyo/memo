@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->char('note_id', 26);
             $table->text('body');
             $table->text('title');
+            $table->timestamp('active_note_created_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
 
             $table->foreign('note_id')->references('note_id')->on('notes');

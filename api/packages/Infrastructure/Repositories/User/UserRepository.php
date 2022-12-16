@@ -23,8 +23,8 @@ final class UserRepository
         ');
         foreach ($users as $user) {
             $result = $result->add(new User(
-                UserId::throwIfValidErrorFrom($user->user_id),
-                Email::throwIfValidErrorFrom($user->email)
+                UserId::from($user->user_id),
+                Email::from($user->email)
             ));
         }
 
@@ -36,8 +36,8 @@ final class UserRepository
         $laravelUser = auth()->user();
 
         return new User(
-            UserId::throwIfValidErrorFrom($laravelUser->user_id),
-            Email::throwIfValidErrorFrom($laravelUser->email)
+            UserId::from($laravelUser->user_id),
+            Email::from($laravelUser->email)
         );
     }
 }

@@ -25,9 +25,9 @@ class EditNoteRequest extends FormRequest
     public function fromDomain(): LatestNote
     {
         $latestNote = new LatestNote(
-            NoteId::from($this->noteId),
-            Title::from($this->title),
-            Body::from($this->body)
+            NoteId::unsafetyFrom($this->noteId),
+            Title::unsafetyFrom($this->title),
+            Body::unsafetyFrom($this->body)
         );
 
         $errors = new Errors([]);

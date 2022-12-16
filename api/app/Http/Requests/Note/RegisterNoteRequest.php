@@ -24,8 +24,8 @@ class RegisterNoteRequest extends FormRequest
     public function fromDomain(): InitNote
     {
         $initNote = new InitNote(
-            Title::from($this->title),
-            Body::from($this->body)
+            Title::unsafetyFrom($this->title),
+            Body::unsafetyFrom($this->body)
         );
 
         $errors = new Errors([]);

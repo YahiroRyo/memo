@@ -45,6 +45,6 @@ final class RegisterNoteRepository
             }
         });
 
-        return NoteId::throwIfValidErrorFrom($noteId);
+        return NoteId::from($noteId);
     }
 }

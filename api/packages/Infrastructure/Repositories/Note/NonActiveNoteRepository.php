@@ -28,9 +28,9 @@ final class NonActiveNoteRepository
 
         foreach ($notes as $note) {
             $result[] = new NonActiveNoteBrief(
-                NonActiveNoteId::throwIfValidErrorFrom($note->id),
-                NoteId::throwIfValidErrorFrom($note->note_id),
-                Title::throwIfValidErrorFrom($note->title),
+                NonActiveNoteId::from($note->id),
+                NoteId::from($note->note_id),
+                Title::from($note->title),
             );
         }
 

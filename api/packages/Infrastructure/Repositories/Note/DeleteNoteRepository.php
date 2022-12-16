@@ -4,15 +4,14 @@ namespace Packages\Infrastructure\Repositories\Note;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
-use Packages\Domain\Note\Entities\LatestNote;
-use Packages\Domain\User\Entities\User;
-use Packages\Exceptions\Note\FailEditNoteException;
+use Packages\Domain\Note\ValueObjects\NoteId;
+use Packages\Exceptions\Note\FailDeleteNoteException;
 
-final class EditNoteRepository
+final class DeleteNoteRepository
 {
-    public function editNote(LatestNote $latestNote, User $user): void
+    public function deleteNote(NoteId $noteId): void
     {
-        DB::transaction(function () use ($latestNote, $user) {
+        DB::transaction(function () use ($noteId) {
             $preActiveNote = DB::selectOne('
                 SELECT
                     note_id,
@@ -24,53 +23,35 @@ final class EditNoteRepository
                     active_notes
                 WHERE
                     note_id = ?
-            ', [$latestNote->noteId()->value()]);
+            ', [$noteId->value()]);
 
             DB::delete('
                 DELETE FROM
                     active_notes
                 WHERE
                     note_id = ?
-            ', [$latestNote->noteId()->value()]);
-
-            $isSuccess = DB::insert('
-                INSERT INTO active_notes (
-                    note_id,
-                    user_id,
-                    title,
-                    body
-                ) VALUES (?, ?, ?, ?)
-            ', [
-                $latestNote->noteId()->value(),
-                $user->userId()->value(),
-                $latestNote->title()->value(),
-                $latestNote->body()->value(),
-            ]);
-
-            if (!$isSuccess) {
-                throw new FailEditNoteException();
-            }
+            ', [$noteId->value()]);
 
             $isSuccess = DB::insert('
                 INSERT INTO non_active_notes (
                     note_id,
-                    user_id,
                     title,
                     body,
+                    user_id,
                     active_note_created_at,
                     created_at
                 ) VALUES (?, ?, ?, ?, ?, ?)
             ', [
                 $preActiveNote->note_id,
-                $preActiveNote->user_id,
                 $preActiveNote->title,
                 $preActiveNote->body,
+                $preActiveNote->user_id,
                 $preActiveNote->created_at,
                 new CarbonImmutable()
             ]);
 
             if (!$isSuccess) {
-                throw new FailEditNoteException();
+                throw new FailDeleteNoteException();
             }
         });
     }
