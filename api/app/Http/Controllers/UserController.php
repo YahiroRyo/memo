@@ -25,8 +25,13 @@ class UserController extends Controller
         $this->registerUserService->register($request->fromDomain());
     }
 
-    public function loginUser(LoginRequest $request): array
+    public function login(LoginRequest $request): array
     {
-        return $this->authUserService->loginUser($request->fromDomain())->ofJson();
+        return $this->authUserService->login($request->fromDomain())->ofJson();
+    }
+
+    public function logout(): void
+    {
+        $this->authUserService->logout();
     }
 }

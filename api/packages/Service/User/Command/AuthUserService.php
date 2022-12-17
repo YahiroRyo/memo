@@ -15,8 +15,13 @@ final class AuthUserService
         $this->authUserRepository = $authUserRepository;
     }
 
-    public function loginUser(UserForLogin $userForLogin): Token
+    public function login(UserForLogin $userForLogin): Token
     {
-        return $this->authUserRepository->loginUser($userForLogin);
+        return $this->authUserRepository->login($userForLogin);
+    }
+
+    public function logout(): void
+    {
+        $this->authUserRepository->logout();
     }
 }
