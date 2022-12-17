@@ -7,7 +7,7 @@ use Illuminate\Validation\ValidationException;
 
 class Elements implements DomainModel
 {
-    protected readonly array $value;
+    protected array $value;
     protected string $name;
 
     private function __construct($value)

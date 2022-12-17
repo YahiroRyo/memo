@@ -27,4 +27,12 @@ final class NoteBrief
     {
         return $this->title;
     }
+
+    public function ofJson(): array
+    {
+        return [
+            'noteId' => $this->noteId()->value(),
+            'title'  => $this->title()->value(),
+        ];
+    }
 }
