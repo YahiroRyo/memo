@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Packages\Exceptions\Note\FailDeleteNoteException;
 use Packages\Exceptions\Note\FailRegisterNoteException;
@@ -45,6 +46,9 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof ValidationException) {
             return response()->json($e->errors(), 400);
+        }
+        if ($e instanceof UnauthorizedException) {
+            return response()->json(['message' => $e->getMessage()], 401);
         }
 
         return parent::render($request, $e);
