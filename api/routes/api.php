@@ -9,5 +9,6 @@ Route::middleware('auth:sanctum')->prefix('/')->group(function () {
         Route::post('/', [NoteController::class, 'registerNote']);
         Route::put('/', [NoteController::class, 'editNote']);
         Route::delete('/', [NoteController::class, 'deleteNote']);
+        Route::get('/{noteId}', [NoteController::class, 'note']);
     });
 });

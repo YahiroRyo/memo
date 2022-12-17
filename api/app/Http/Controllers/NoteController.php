@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Note\DeleteNoteRequest;
 use App\Http\Requests\Note\EditNoteRequest;
 use App\Http\Requests\Note\NoteListRequest;
+use App\Http\Requests\Note\NoteRequest;
 use App\Http\Requests\Note\RegisterNoteRequest;
 use Packages\Service\Note\Command\DeleteNoteService;
 use Packages\Service\Note\Command\EditNoteService;
@@ -48,5 +49,10 @@ class NoteController extends Controller
     public function noteList(NoteListRequest $request): array
     {
         return $this->activeNoteService->searchNoteList($request->fromDomain())->ofJson();
+    }
+
+    public function note(NoteRequest $request): array
+    {
+        return $this->activeNoteService->note($request->fromDomain())->ofJson();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Packages\Exceptions\Note\FailDeleteNoteException;
@@ -56,6 +57,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        $this->reportable(function (ModelNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
+        });
+
         $this->reportable(function (UserExistsException $e) {
             return response()->json(['message' => '1ユーザーまでしか作成ができません。'], 400);
         });
