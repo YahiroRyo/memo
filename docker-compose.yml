@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-  memo-client:
-    build:
-      context: ./client
-    command: yarn dev
-    container_name: memo-client
-    environment:
-      TZ: "Asia/Tokyo"
-    ports:
-      - 3000:3000
-    volumes:
-      - ./client:/home/app
     
   memo-api:
     build:
@@ -39,24 +28,6 @@ services:
       - 50432:5432
     volumes:
       - ./database/data:/var/lib/postgresql/data
-
-  yarn:
-    build:
-      context: ./client
-    entrypoint: yarn
-    environment:
-      TZ: "Asia/Tokyo"
-    volumes:
-      - ./client:/home/app
-
-  npm:
-    build:
-      context: ./client
-    entrypoint: npm
-    environment:
-      TZ: "Asia/Tokyo"
-    volumes:
-      - ./client:/home/app
 
   php:
     build:
