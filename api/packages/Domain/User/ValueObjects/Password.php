@@ -6,7 +6,7 @@ use Packages\Domain\StringLengthLimit;
 
 final class Password extends StringLengthLimit
 {
-    protected string $name = 'パスワード';
+    protected string $name = 'password';
     protected int $minLengthLimit = 6;
     protected int $maxLengthLimit = 255;
 
