@@ -11,7 +11,11 @@ const RegisterUser = () => {
       `}
     >
       <HeaderContainer />
-      <RegisterFormContainer />
+      <RegisterFormContainer
+        style={css`
+          height: 100%;
+        `}
+      />
     </div>
   );
 };

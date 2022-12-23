@@ -11,7 +11,11 @@ const Login = () => {
       `}
     >
       <HeaderContainer />
-      <LoginFormContainer />
+      <LoginFormContainer
+        style={css`
+          height: 100%;
+        `}
+      />
     </div>
   );
 };

@@ -42,7 +42,17 @@ export const LoginForm = ({ style, onSubmit, register, handleSubmit, errors, isV
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} css={style}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      css={css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        ${style}
+      `}
+    >
       <div
         css={css`
           width: 100%;

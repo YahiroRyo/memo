@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -11,7 +11,11 @@ import { LoginFormParams } from '../../../../../types/userSettingClient/LoginFor
 import { Inner } from '../../../atoms/Inner';
 import { LoginForm } from '../../PresentationalComponents/LoginForm';
 
-export const LoginFormContainer = () => {
+type LoginFormContainerProps = {
+  style?: SerializedStyles;
+};
+
+export const LoginFormContainer = ({ style }: LoginFormContainerProps) => {
   const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
@@ -56,24 +60,8 @@ export const LoginFormContainer = () => {
   };
 
   return (
-    <Inner
-      style={css`
-        height: 100%;
-      `}
-    >
-      <LoginForm
-        style={css`
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-        `}
-        onSubmit={login}
-        register={register}
-        handleSubmit={handleSubmit}
-        errors={errors}
-        isValid={isValid}
-      />
+    <Inner style={style}>
+      <LoginForm onSubmit={login} register={register} handleSubmit={handleSubmit} errors={errors} isValid={isValid} />
     </Inner>
   );
 };
