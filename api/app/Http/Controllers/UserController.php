@@ -20,9 +20,9 @@ class UserController extends Controller
         $this->authUserService     = $authUserService;
     }
 
-    public function registerUser(RegisterUserRequest $request): void
+    public function registerUser(RegisterUserRequest $request): array
     {
-        $this->registerUserService->register($request->fromDomain());
+        return $this->registerUserService->register($request->fromDomain())->ofJson();
     }
 
     public function login(LoginRequest $request): array

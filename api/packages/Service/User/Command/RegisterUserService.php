@@ -3,6 +3,7 @@
 namespace Packages\Service\User\Command;
 
 use Packages\Domain\User\Entities\InitUser;
+use Packages\Domain\User\ValueObjects\Token;
 use Packages\Exceptions\User\UserExistsException;
 use Packages\Infrastructure\Repositories\User\RegisterUserRepository;
 use Packages\Infrastructure\Repositories\User\UserRepository;
@@ -20,12 +21,12 @@ final class RegisterUserService
         $this->userRepository = $userRepository;
     }
 
-    public function register(InitUser $initUser): void
+    public function register(InitUser $initUser): Token
     {
         if (!$this->userRepository->users()->isEmpty()) {
             throw new UserExistsException();
         }
 
-        $this->registerUserRepository->register($initUser);
+        return $this->registerUserRepository->register($initUser);
     }
 }

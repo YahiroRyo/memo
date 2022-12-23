@@ -15,7 +15,7 @@ class LogoutUserTest extends UserTestCase
             'password'  => 'password',
         ]);
 
-        $response = $this->post('/users', $userRegisterRequest->all());
+        $response = $this->post('/users/register', $userRegisterRequest->all());
         $response->assertOk();
 
         $userLoginRequest = new LoginRequest($userRegisterRequest->all());

@@ -29,6 +29,7 @@ export const NonUnderlinedButton = ({ children, style, href }: NonUnderlinedButt
           display: inline-block;
           font-size: 0.9rem;
           height: 100%;
+          padding: 0 1.5rem;
 
           &:hover {
             color: ${theme.orange};
