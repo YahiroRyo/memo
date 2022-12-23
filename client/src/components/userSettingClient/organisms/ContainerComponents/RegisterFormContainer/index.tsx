@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../../../store/Auth';
 import { LoggedInResponse } from '../../../../../types/userSettingClient/LoggedInResponse';
-import { LoginFormParams } from '../../../../../types/userSettingClient/LoginFormParams';
+import { RegisterFormParams } from '../../../../../types/userSettingClient/RegisterFormParams';
 import { Inner } from '../../../atoms/Inner';
-import { LoginForm } from '../../PresentationalComponents/LoginForm';
+import { RegisterForm } from '../../PresentationalComponents/RegisterForm';
 
-export const LoginFormContainer = () => {
+export const RegisterFormContainer = () => {
   const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
@@ -20,7 +20,7 @@ export const LoginFormContainer = () => {
     handleSubmit,
     setError,
     formState: { errors, isValid },
-  } = useForm<LoginFormParams>({
+  } = useForm<RegisterFormParams>({
     mode: 'onChange',
   });
 
@@ -31,12 +31,12 @@ export const LoginFormContainer = () => {
     }
   });
 
-  const login = async (loginFormParams: LoginFormParams) => {
+  const registerUser = async (registerFormParams: RegisterFormParams) => {
     await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`).then(async (response) => {
       try {
         const response = await axios.post<LoggedInResponse>(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
-          loginFormParams,
+          `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
+          registerFormParams,
         );
 
         setUser({
@@ -45,12 +45,12 @@ export const LoginFormContainer = () => {
       } catch (e) {
         if (axios.isAxiosError(e) && e.response.status === 400) {
           for (const inputName in e.response.data) {
-            setError(inputName as keyof LoginFormParams, { message: e.response.data[inputName] });
+            setError(inputName as keyof RegisterFormParams, { message: e.response.data[inputName] });
           }
           return;
         }
 
-        setError('email', { message: '入力されたユーザー名もしくはパスワードが正しくありません。' });
+        setError('email', { message: 'アカウントの登録に失敗しました。' });
       }
     });
   };
@@ -61,14 +61,14 @@ export const LoginFormContainer = () => {
         height: 100%;
       `}
     >
-      <LoginForm
+      <RegisterForm
         style={css`
           display: flex;
           align-items: center;
           justify-content: center;
           height: 100%;
         `}
-        onSubmit={login}
+        onSubmit={registerUser}
         register={register}
         handleSubmit={handleSubmit}
         errors={errors}

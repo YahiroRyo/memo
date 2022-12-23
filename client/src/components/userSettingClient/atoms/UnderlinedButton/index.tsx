@@ -28,6 +28,7 @@ export const UnderlinedButton = ({ children, style, href }: UnderlinedButtonProp
           background-color: ${theme.lightWhite};
           display: inline-block;
           font-size: 0.9rem;
+          padding: 0 1.5rem;
           position: relative;
           height: 100%;
 

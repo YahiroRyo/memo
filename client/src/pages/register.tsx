@@ -1,14 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { Title } from '../components/userSettingClient/atoms/Title';
+import { css } from '@emotion/react';
 import { HeaderContainer } from '../components/userSettingClient/organisms/ContainerComponents/HeaderContainer';
+import { RegisterFormContainer } from '../components/userSettingClient/organisms/ContainerComponents/RegisterFormContainer';
 
-const Register = () => {
+const RegisterUser = () => {
   return (
-    <>
+    <div
+      css={css`
+        height: 100vh;
+      `}
+    >
       <HeaderContainer />
-      <Title>アカウントの登録</Title>
-    </>
+      <RegisterFormContainer />
+    </div>
   );
 };
 
-export default Register;
+export default RegisterUser;

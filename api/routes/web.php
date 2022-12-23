@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::prefix('/users')->group(function () {
-    Route::post('/', [UserController::class, 'registerUser'])->name('create');
+    Route::post('/register', [UserController::class, 'registerUser'])->name('create');
     Route::post('/login', [UserController::class, 'login'])->name('login');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });

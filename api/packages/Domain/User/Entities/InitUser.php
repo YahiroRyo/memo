@@ -27,4 +27,12 @@ final class InitUser
     {
         return $this->password;
     }
+
+    public function ofJson(): array
+    {
+        return [
+            'email'    => $this->email()->value(),
+            'password' => $this->password()->value(),
+        ];
+    }
 }

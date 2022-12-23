@@ -14,7 +14,7 @@ class RegisterUserTest extends UserTestCase
             'password'  => 'password',
         ]);
 
-        $response = $this->post('/users', $request->all());
+        $response = $this->post('/users/register', $request->all());
         $response->assertOk();
         $this->assertTrue(User::where('email', $request['email'])->exists());
     }
@@ -28,7 +28,7 @@ class RegisterUserTest extends UserTestCase
             'password'  => 'password',
         ]);
 
-        $response = $this->post('/users', $request->all());
+        $response = $this->post('/users/register', $request->all());
         $response->assertStatus(500);
     }
 }
