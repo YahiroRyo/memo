@@ -23,10 +23,6 @@ final class RegisterUserService
 
     public function register(InitUser $initUser): Token
     {
-        if (!$this->userRepository->users()->isEmpty()) {
-            throw new UserExistsException();
-        }
-
         return $this->registerUserRepository->register($initUser);
     }
 }

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -11,7 +11,11 @@ import { RegisterFormParams } from '../../../../../types/userSettingClient/Regis
 import { Inner } from '../../../atoms/Inner';
 import { RegisterForm } from '../../PresentationalComponents/RegisterForm';
 
-export const RegisterFormContainer = () => {
+type RegisterFormContainerProps = {
+  style?: SerializedStyles;
+};
+
+export const RegisterFormContainer = ({ style }: RegisterFormContainerProps) => {
   const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
@@ -56,18 +60,8 @@ export const RegisterFormContainer = () => {
   };
 
   return (
-    <Inner
-      style={css`
-        height: 100%;
-      `}
-    >
+    <Inner style={style}>
       <RegisterForm
-        style={css`
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-        `}
         onSubmit={registerUser}
         register={register}
         handleSubmit={handleSubmit}
