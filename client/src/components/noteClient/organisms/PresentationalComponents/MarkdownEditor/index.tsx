@@ -12,9 +12,10 @@ type MarkdownEditorProps = {
   error: string;
   onChange: (value: string) => void;
   onSave: () => void;
+  onFocusOut: () => void;
 };
 
-export const MarkdownEditor = ({ value, isFetching, error, onChange, onSave }: MarkdownEditorProps) => {
+export const MarkdownEditor = ({ value, isFetching, error, onChange, onSave, onFocusOut }: MarkdownEditorProps) => {
   const autofocusNoSpellcheckerOptions = useMemo(() => {
     return {
       autofocus: true,
@@ -50,6 +51,7 @@ export const MarkdownEditor = ({ value, isFetching, error, onChange, onSave }: M
       onChange={(value) => {
         onChange(value);
       }}
+      onBlur={onFocusOut}
     />
   );
 };
