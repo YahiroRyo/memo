@@ -15,11 +15,10 @@ class EditNoteTest extends NoteTestCase
         $response->assertOk();
 
         $registerNoteRequest = new EditNoteRequest([
-            'noteId' => $response->json('noteId'),
             'title'  => 'ﾃｽﾄ',
             'body'   => 'aaaa',
         ]);
-        $response = $this->put('/api/notes', $registerNoteRequest->all());
+        $response = $this->put("/api/notes/{$response->json('noteId')}", $registerNoteRequest->all());
         $response->assertOk();
     }
 
@@ -31,11 +30,10 @@ class EditNoteTest extends NoteTestCase
 
         for ($i = 0; $i < 10; $i++) {
             $registerNoteRequest = new EditNoteRequest([
-                'noteId' => $registerNoteResponse->json('noteId'),
                 'title'  => 'ﾃｽﾄ',
                 'body'   => 'aaaa',
             ]);
-            $response = $this->put('/api/notes', $registerNoteRequest->all());
+            $response = $this->put("/api/notes/{$registerNoteResponse->json('noteId')}", $registerNoteRequest->all());
             $response->assertOk();
         }
 

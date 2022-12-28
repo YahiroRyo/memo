@@ -29,7 +29,7 @@ class StringLengthLimit implements DomainModel
 
     public function validatedMessages(): array
     {
-        $validateRules = ["string", "min:{$this->minLengthLimit}", "max:{$this->maxLengthLimit}"];
+        $validateRules = ["min:{$this->minLengthLimit}", "max:{$this->maxLengthLimit}"];
 
         if ($this->minLengthLimit >= 1) {
             $validateRules[] = "required";

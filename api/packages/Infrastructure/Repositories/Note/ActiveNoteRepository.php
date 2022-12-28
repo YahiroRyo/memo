@@ -45,7 +45,7 @@ final class ActiveNoteRepository
         );
     }
 
-    public function note(): Note
+    public function note(NoteId $noteId): Note
     {
         $note = DB::selectOne('
             SELECT
@@ -54,9 +54,11 @@ final class ActiveNoteRepository
                 body
             FROM
                 active_notes
+            WHERE
+                note_id = ?
             ORDER BY
                 created_at DESC
-        ');
+        ', [$noteId->value()]);
 
         if (!$note) {
             throw new ModelNotFoundException('存在しないノートです。URLをお確かめの上もう一度お試しください。');

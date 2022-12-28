@@ -25,7 +25,7 @@ class RegisterNoteRequest extends FormRequest
     {
         $initNote = new InitNote(
             Title::unsafetyFrom($this->title),
-            Body::unsafetyFrom($this->body)
+            $this->elseBodyDefaultEmptyValue()
         );
 
         $errors = new Errors([]);
@@ -42,5 +42,10 @@ class RegisterNoteRequest extends FormRequest
             'title' => 'タイトル',
             'body'  => 'ボディー'
         ]);
+    }
+
+    private function elseBodyDefaultEmptyValue(): Body
+    {
+        return Body::unsafetyFrom($this->body ?? '');
     }
 }

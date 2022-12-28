@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { RecoilRoot } from 'recoil';
 import type { AppProps } from 'next/app';
-import '../styles/userSettingClient/global.scss';
+import '../styles/global.scss';
 
 // This default export is required in a new `pages/_app.js` file.
 const App = ({ Component, pageProps }: AppProps) => {

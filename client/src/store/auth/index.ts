@@ -6,7 +6,7 @@ const { persistAtom } = recoilPersist({
 });
 
 type UserState = {
-  token: string | null;
+  token?: string;
 };
 
 export const userState = atom<UserState>({
