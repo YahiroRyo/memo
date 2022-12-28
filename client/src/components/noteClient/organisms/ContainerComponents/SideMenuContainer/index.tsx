@@ -7,14 +7,20 @@ import { SideMenu } from '../../PresentationalComponents/SideMenu';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
-const fetchNotesBrief = async (token: string): Promise<NoteBrief[]> => {
-  const response = await axios.get<NoteBrief[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/notes`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const fetchNotesBrief = async (token: string, notesBrief?: NoteBrief[]): Promise<NoteBrief[]> => {
+  try {
+    const response = await axios.get<NoteBrief[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/notes`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return response.data;
+    return response.data;
+  } catch (e) {
+    if (!notesBrief) throw e;
+  }
+
+  return notesBrief;
 };
 
 const addNote = async (token: string, title: string): Promise<string> => {
@@ -37,7 +43,7 @@ const addNote = async (token: string, title: string): Promise<string> => {
 export const SideMenuContainer = () => {
   const router = useRouter();
   const [user] = useRecoilState(userState);
-  const { data, error, isLoading, mutate } = useSWR('/api/notes', () => fetchNotesBrief(user.token));
+  const { data, error, isLoading, mutate } = useSWR('/api/notes', () => fetchNotesBrief(user.token, data));
 
   const clickNoteItemHandler = async (noteBrief: NoteBrief): Promise<void> => {
     mutate();
