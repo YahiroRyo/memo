@@ -18,17 +18,4 @@ class RegisterUserTest extends UserTestCase
         $response->assertOk();
         $this->assertTrue(User::where('email', $request['email'])->exists());
     }
-
-    public function test_ユーザーが存在した場合作成できないこと(): void
-    {
-        $this->test_ユーザー作成を行えること();
-
-        $request = new RegisterUserRequest([
-            'email'     => 'b@a.aa',
-            'password'  => 'password',
-        ]);
-
-        $response = $this->post('/users/register', $request->all());
-        $response->assertStatus(500);
-    }
 }

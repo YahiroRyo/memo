@@ -27,7 +27,7 @@ class EditNoteRequest extends FormRequest
         $latestNote = new LatestNote(
             NoteId::unsafetyFrom($this->noteId),
             Title::unsafetyFrom($this->title),
-            Body::unsafetyFrom($this->body)
+            $this->elseBodyDefaultEmptyValue()
         );
 
         $errors = new Errors([]);
@@ -37,5 +37,10 @@ class EditNoteRequest extends FormRequest
         $errors->throwIf();
 
         return $latestNote;
+    }
+
+    private function elseBodyDefaultEmptyValue(): Body
+    {
+        return Body::unsafetyFrom($this->body ?? '');
     }
 }

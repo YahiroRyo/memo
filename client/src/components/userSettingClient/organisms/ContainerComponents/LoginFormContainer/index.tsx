@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../../../../store/Auth';
+import { userState } from '../../../../../store/auth';
 import { LoggedInResponse } from '../../../../../types/userSettingClient/LoggedInResponse';
 import { LoginFormParams } from '../../../../../types/userSettingClient/LoginFormParams';
 import { Inner } from '../../../atoms/Inner';

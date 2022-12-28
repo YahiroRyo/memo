@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Note\DeleteNoteRequest;
 use App\Http\Requests\Note\EditNoteRequest;
+use App\Http\Requests\Note\EditNoteTitleRequest;
 use App\Http\Requests\Note\NoteListRequest;
 use App\Http\Requests\Note\NoteRequest;
 use App\Http\Requests\Note\RegisterNoteRequest;
@@ -39,6 +40,11 @@ class NoteController extends Controller
     public function editNote(EditNoteRequest $request): void
     {
         $this->editNoteService->editNote($request->fromDomain());
+    }
+
+    public function editNoteTitle(EditNoteTitleRequest $request): void
+    {
+        $this->editNoteService->editNoteTitle($request->fromDomain());
     }
 
     public function deleteNote(DeleteNoteRequest $request): void
