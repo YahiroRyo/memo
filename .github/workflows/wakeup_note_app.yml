@@ -1,4 +1,4 @@
-name: wakeup_note_app
+name: wakeup note app
  
 on:
   schedule:
