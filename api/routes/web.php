@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function() {
-    dd($_SERVER['SERVER_NAME']);
+    phpinfo();
 });
 
 Route::prefix('/users')->group(function () {
