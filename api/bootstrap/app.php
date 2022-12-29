@@ -52,6 +52,11 @@ $app->singleton(
 |
 */
 
-$app->loadEnvironmentFrom('.env.dev');
+switch ($_SERVER['SERVER_NAME'] ?? 'localhost') {
+    default:
+        $app->loadEnvironmentFrom('.env.dev');
+        break;
+}
+
 
 return $app;
