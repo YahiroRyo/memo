@@ -1,8 +1,8 @@
-name: wwakeup_note_app
+name: wakeup_note_app
  
 on:
   schedule:
-    - cron: '10 * * *'
+    - cron: '10 * * * *'
 
 jobs:
   wakeup:
