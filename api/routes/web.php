@@ -14,6 +14,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/', function() {
+    dd($_SERVER['SERVER_NAME']);
+});
+
 Route::prefix('/users')->group(function () {
     Route::post('/register', [UserController::class, 'registerUser'])->name('create');
     Route::post('/login', [UserController::class, 'login'])->name('login');
