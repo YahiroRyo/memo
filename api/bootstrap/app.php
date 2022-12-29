@@ -53,6 +53,9 @@ $app->singleton(
 */
 
 switch ($_SERVER['SERVER_NAME'] ?? 'localhost') {
+    case 'note.yappi.jp':
+        $app->loadEnvironmentFrom('.env');
+        break;
     default:
         $app->loadEnvironmentFrom('.env.dev');
         break;
