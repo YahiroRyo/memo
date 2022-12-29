@@ -1,0 +1,11 @@
+name: wwakeup_note_app
+ 
+on:
+  schedule:
+    - cron: '10 * * *'
+
+jobs:
+  wakeup:
+    runs-on: ubuntu-18.04
+    steps:
+      - run: curl -X GET https://note.yappi.jp/
